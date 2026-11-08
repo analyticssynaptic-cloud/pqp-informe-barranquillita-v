@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <!--
-  PQP · PLANTILLA OFICIAL DE INFORME DE ACTIVIDAD (Barranquillita)
-  Diseño canónico = Informes II, III y IV (rojo PQP + Plus Jakarta Sans).
-  REGLA DE ORO: no se toca el CSS ni el HTML. Solo se edita el objeto DATA (al final).
-  Ver REGLAS-DISENO.md
+  PQP · PLANTILLA OFICIAL DE INFORME DE ACTIVIDAD (Barranquillita) — v2
+  Diseño canónico = Informes II, III y IV (rojo PQP + Plus Jakarta Sans), con todas sus secciones.
+  REGLA DE ORO: no se toca el CSS ni el HTML. Solo se reemplaza el bloque DATA,
+  y eso lo hace bot/informe_barranquillita.py a partir del Google Sheet validado.
 -->
 <html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="pqp-plantilla" content="oficial-v1">
+<meta name="pqp-plantilla" content="oficial-v2">
 <title>PQP · Informe de Actividad</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root {
-  /* Marca PQP — NO CAMBIAR (los nombres heredados "blue/sky/aqua" contienen rojos) */
-  --p-navy:#241c1c; --p-deep:#a30000; --p-blue:#E1000F; --p-sky:#ff5c5c; --p-aqua:#ff4b4b; --p-mint:#ffdede;
-  --p-fresh:#fff0f0; --p-white:#ffffff; --p-gray:#8a7a7b; --p-gray2:#cdc0c1;
-  --p-border:#ecd8d8; --p-line:#f1e8e8; --p-soft:#f6f5f5; --p-green:#0e7a5f; --p-orange:#a86a1a;
-  --p-red:#7a2020; --p-gold:#a37b3a; --p-plum:#6b4e88; --p-graddark:#7a0000;
-  --p-tint:#fdeceb; --p-hl:#fef9ec; --p-hl-ink:#92400e; --p-hl-bar:#fbbf24;
+:root{
+  --p-navy:#241c1c;--p-deep:#a30000;--p-blue:#E1000F;--p-sky:#ff5c5c;--p-aqua:#ff4b4b;--p-mint:#ffdede;
+  --p-fresh:#fff0f0;--p-white:#fff;--p-gray:#8a7a7b;--p-gray2:#cdc0c1;--p-border:#ecd8d8;--p-line:#f1e8e8;--p-soft:#f6f5f5;
+  --p-green:#0e7a5f;--p-orange:#a86a1a;--p-red:#7a2020;--p-gold:#a37b3a;--p-graddark:#7a0000;
+  --p-tint:#fdeceb;--p-hl:#fef9ec;--p-hl-ink:#92400e;--p-hl-bar:#fbbf24;
   --grad-brand:linear-gradient(140deg,var(--p-aqua) 0%,var(--p-blue) 55%,var(--p-graddark) 100%);
   --grad-line:linear-gradient(90deg,var(--p-graddark),var(--p-blue),var(--p-sky));
 }
 *{box-sizing:border-box}
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html{-webkit-font-smoothing:antialiased}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:var(--p-navy);margin:0;overflow-x:hidden;letter-spacing:-.005em}
-
-/* HERO */
 .hero{height:480px;background:radial-gradient(circle at 80% 15%,rgba(255,255,255,.14),transparent 55%),var(--grad-brand);display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative}
 .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--grad-line)}
 .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--p-soft))}
 .hero-topbar{position:absolute;top:30px;left:50px;right:50px;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:600;z-index:3}
 .brand-mark{display:inline-flex;align-items:center;gap:12px}
 .brand-mark .mk{width:32px;height:32px;border:1.5px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem}
-.hero-topbar .meta{display:flex;gap:40px}
-.hero-topbar .meta span{color:rgba(255,255,255,.55);margin-right:8px}
+.hero-topbar .meta{display:flex;gap:40px}.hero-topbar .meta span{color:rgba(255,255,255,.55);margin-right:8px}
 .hero-content{position:relative;z-index:2;padding:0 40px;max-width:1080px}
 .brand-line{font-size:.75rem;letter-spacing:8px;text-transform:uppercase;color:var(--p-fresh);font-weight:700;margin-bottom:22px}
 .hero h1{font-size:4.6rem;font-weight:900;margin:0;letter-spacing:-3px;line-height:1;text-shadow:0 4px 30px rgba(0,0,0,.3)}
@@ -45,10 +40,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .hero-facts{display:flex;gap:60px;justify-content:center;margin:45px auto 0;padding-top:30px;border-top:1px solid rgba(255,255,255,.18);max-width:720px}
 .hero-facts .n{font-size:1.9rem;font-weight:800;line-height:1;letter-spacing:-1px}
 .hero-facts .l{font-size:.66rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:8px;font-weight:600}
-
 .container{max-width:1360px;margin:-80px auto 0;padding:0 20px;position:relative;z-index:3}
-
-/* RESUMEN EJECUTIVO */
 .exec-summary{background:#fff;padding:55px;border-radius:4px;box-shadow:0 25px 55px -10px rgba(26,18,16,.14);margin-bottom:45px;border:1px solid var(--p-border);position:relative;overflow:hidden}
 .exec-summary::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-line)}
 .exec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:1px solid var(--p-line);padding-bottom:24px;margin-bottom:40px}
@@ -58,28 +50,20 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .exec-item{display:flex;gap:20px}
 .exec-item .ico{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--p-tint);color:var(--p-blue);border-radius:4px}
 .exec-item h4{margin:0 0 8px;text-transform:uppercase;font-size:.72rem;font-weight:800;letter-spacing:1.5px}
-.exec-item p{margin:0;font-size:.9rem;line-height:1.65;color:var(--p-gray)}
-.exec-item p strong{color:var(--p-navy);font-weight:700}
-
-/* SPOTLIGHT */
+.exec-item p{margin:0;font-size:.9rem;line-height:1.65;color:var(--p-gray)}.exec-item p strong{color:var(--p-navy);font-weight:700}
 .spotlight{background:var(--grad-brand);color:#fff;border-radius:4px;padding:40px 50px;margin-bottom:45px;display:grid;grid-template-columns:repeat(var(--cols,5),1fr);gap:30px;box-shadow:0 20px 45px rgba(122,0,0,.25);position:relative;overflow:hidden}
 .spotlight::after{content:'';position:absolute;top:-120px;right:-120px;width:320px;height:320px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);border-radius:50%}
-.sp-stat{border-right:1px solid rgba(255,255,255,.14);padding-right:20px;position:relative;z-index:1}
-.sp-stat:last-child{border-right:none}
+.sp-stat{border-right:1px solid rgba(255,255,255,.14);padding-right:20px;position:relative;z-index:1}.sp-stat:last-child{border-right:none}
 .sp-lbl{font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--p-fresh);font-weight:700;margin-bottom:14px;opacity:.9}
 .sp-stat h2{font-size:2.5rem;font-weight:800;margin:0;letter-spacing:-1.5px;line-height:1}
 .sp-stat h2 small{font-size:1rem;font-weight:600;color:rgba(255,255,255,.6);margin-left:4px}
 .sp-sub{font-size:.75rem;color:rgba(255,255,255,.62);margin-top:12px;line-height:1.5;font-weight:500}
-
-/* SECCIONES */
 .section-hero{display:flex;align-items:baseline;gap:22px;margin:65px 0 6px}
-.section-hero .num{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--p-gray);font-weight:800;padding:6px 12px;border:1px solid var(--p-border);border-radius:2px}
+.section-hero .num{font-size:.7rem;letter-spacing:3px;color:var(--p-gray);font-weight:800;padding:6px 12px;border:1px solid var(--p-border);border-radius:2px}
 .section-title{font-size:2.1rem;font-weight:800;margin:0;letter-spacing:-1.2px;line-height:1.1}
 .section-title em{font-style:normal;color:var(--p-blue)}
 .section-sub{color:var(--p-gray);font-size:.94rem;margin:14px 0 32px;max-width:880px;line-height:1.65}
 .subsection-title{font-size:1.2rem;font-weight:800;margin:38px 0 10px;letter-spacing:-.4px}
-
-/* KPI */
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:26px}
 .kpi-card{background:#fff;padding:26px 24px;border-radius:4px;border:1px solid var(--p-border);transition:.2s;position:relative}
 .kpi-card:hover{border-color:var(--p-blue);transform:translateY(-3px);box-shadow:0 15px 30px rgba(26,18,16,.08)}
@@ -88,26 +72,31 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .k-lbl{font-size:.66rem;font-weight:800;color:var(--p-gray);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
 .kpi-card h3{font-size:2.3rem;margin:0;font-weight:800;letter-spacing:-1.5px;line-height:1}
 .k-note{font-size:.77rem;color:var(--p-gray);margin-top:14px;padding-top:12px;border-top:1px solid var(--p-line);line-height:1.55}
-
-/* CHARTS / TABLAS */
 .chart-box,.table-container{background:#fff;padding:34px;border-radius:4px;border:1px solid var(--p-border);margin-bottom:26px;min-width:0}
 .cb-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .chart-box h3,.table-container h3{margin:0;font-size:1.1rem;font-weight:800;letter-spacing:-.5px}
 .cb-tag{font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--p-gray);font-weight:700}
 .cb-sub,.tbl-sub{font-size:.84rem;color:var(--p-gray);margin:4px 0 24px;line-height:1.6;max-width:780px}
-.chart-container-sm{height:260px;position:relative}
-.chart-split{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.chart-container-sm{height:280px;position:relative}
+.chart-split,.table-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 .table-scroll{overflow-x:auto}
 .table-data{width:100%;border-collapse:collapse}
 .table-data th{text-align:left;padding:11px 8px 11px 0;color:var(--p-gray);border-bottom:1px solid var(--p-navy);font-size:.63rem;text-transform:uppercase;letter-spacing:2px;font-weight:800;white-space:nowrap}
 .table-data td{padding:12px 8px 12px 0;border-bottom:1px solid var(--p-line);font-size:.85rem;font-weight:500;white-space:nowrap}
 .table-data tr.total td{border-bottom:none;border-top:1px solid var(--p-navy);font-weight:800;padding-top:15px;color:var(--p-blue)}
+.table-data tr.rec td{background:var(--p-hl);color:var(--p-hl-ink)}
 .table-data .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.pos{color:var(--p-green)}.neg{color:var(--p-red)}
+.est{color:var(--p-orange);font-style:italic}
+.pill{display:inline-block;padding:3px 10px;font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;border-radius:2px;border:1px solid}
+.pill.pos{background:#e0efe9;border-color:#b8dbcc}.pill.warn{background:#f7edd6;color:var(--p-orange);border-color:#e2c896}.pill.neg{background:#f0dcdc;border-color:#d9b6b6}
 .note-box{background:var(--p-hl);border-left:3px solid var(--p-hl-bar)}
-.note-box h3{color:var(--p-hl-ink)}
-.note-box p{margin:6px 0 0;font-size:.84rem;color:var(--p-gray);line-height:1.6}
-
-/* CARRUSEL */
+.note-box h3{color:var(--p-hl-ink)}.note-box p{margin:6px 0 0;font-size:.84rem;color:var(--p-gray);line-height:1.6}
+.pop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;margin-bottom:40px}
+.pop-card{background:#fff;border:1px solid var(--p-border);border-radius:4px;overflow:hidden}
+.pop-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--p-navy)}
+.pop-cap{padding:14px 16px;font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:800;color:var(--p-gray)}
+.pop-cap b{display:block;font-size:1rem;letter-spacing:-.3px;text-transform:none;color:var(--p-navy);margin-top:4px}
 .carousel{max-width:780px;margin:0 auto 40px}
 .car-row{display:flex;align-items:center;justify-content:center;height:440px}
 .car-side{width:110px;height:84%;flex-shrink:0;border-radius:4px;overflow:hidden;filter:blur(4px);opacity:.5;transform:scale(.94);cursor:pointer;background:var(--p-navy)}
@@ -119,10 +108,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .car-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--p-navy);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
 .car-nav.prev{left:12px}.car-nav.next{right:12px}
 .car-counter{position:absolute;bottom:12px;right:14px;background:rgba(36,28,28,.6);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px}
-.car-caption{text-align:center;padding:14px 10px 2px}
-#carPdv{font-size:1rem;font-weight:800}#carMeta{font-size:.78rem;color:var(--p-gray);margin-top:3px}
-
-/* CONCLUSIONES */
+.car-caption{text-align:center;padding:14px 10px 2px}#carPdv{font-size:1rem;font-weight:800}#carMeta{font-size:.78rem;color:var(--p-gray);margin-top:3px}
 .strategy-box{background:var(--grad-brand);color:#fff;padding:55px;border-radius:4px;margin-bottom:55px;position:relative;overflow:hidden}
 .strategy-box::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);border-radius:50%}
 .strategy-box>*{position:relative}
@@ -134,15 +120,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .concl-card .cl{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;opacity:.85;margin-bottom:8px}
 .concl-card .cv{font-size:2rem;font-weight:800;letter-spacing:-1px;line-height:1}
 .concl-card .cs{font-size:.78rem;opacity:.8;margin-top:4px}
-.concl-card.rojo{background:linear-gradient(135deg,#E1000F,#a30000)}
-.concl-card.oscuro{background:var(--p-navy)}
-.concl-card.oro{background:var(--p-hl-bar);color:var(--p-hl-ink)}
+.concl-card.rojo{background:linear-gradient(135deg,#E1000F,#a30000)}.concl-card.oscuro{background:var(--p-navy)}.concl-card.oro{background:var(--p-hl-bar);color:var(--p-hl-ink)}
 .strat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
 .strat-item{padding:22px 24px;border-left:2px solid var(--p-fresh);background:rgba(255,255,255,.02)}
 .strat-item h6{color:var(--p-fresh);font-size:.66rem;margin:0 0 10px;text-transform:uppercase;font-weight:800;letter-spacing:2px;display:flex;align-items:center;gap:10px}
 .strat-item p{font-size:.86rem;line-height:1.6;margin:0;color:rgba(255,255,255,.85)}
-
-/* FOOTER */
 .foot{background:linear-gradient(140deg,var(--p-graddark),var(--p-blue) 60%,var(--p-aqua));color:#fff;padding:80px 0 40px;margin-top:65px}
 .foot-in{max-width:1300px;margin:0 auto;padding:0 40px}
 .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.15)}
@@ -152,34 +134,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 .foot-col h6{font-size:.66rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--p-fresh);font-weight:800;margin:0 0 16px}
 .foot-col p{font-size:.86rem;line-height:1.65;color:rgba(255,255,255,.72);margin:0 0 8px}
 .foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:24px;font-size:.67rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:600}
-
 @media (max-width:1024px){
-  .exec-grid,.strat-grid,.chart-split,.foot-top,.concl-cards{grid-template-columns:1fr}
-  .spotlight{grid-template-columns:1fr 1fr}
-  .sp-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:20px}
-  .kpi-row{grid-template-columns:1fr 1fr}
-  .hero h1{font-size:2.8rem;letter-spacing:-1.5px}
-  .hero-topbar{display:none}
-  .hero-facts{gap:28px;flex-wrap:wrap}
+  .exec-grid,.strat-grid,.chart-split,.table-wrapper,.foot-top,.concl-cards{grid-template-columns:1fr}
+  .spotlight{grid-template-columns:1fr 1fr}.sp-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:20px}
+  .kpi-row{grid-template-columns:1fr 1fr}.hero h1{font-size:2.8rem;letter-spacing:-1.5px}.hero-topbar{display:none}.hero-facts{gap:28px;flex-wrap:wrap}
 }
 @media (max-width:640px){
-  .hero{height:auto;min-height:480px;padding:60px 0 120px}
-  .hero .subtitle{letter-spacing:4px}
-  .exec-summary,.strategy-box{padding:30px 22px}
-  .exec-head{flex-direction:column}
-  .spotlight{grid-template-columns:1fr;padding:30px 24px}
-  .kpi-row{grid-template-columns:1fr}
-  .chart-box,.table-container{padding:22px 18px}
-  .section-title{font-size:1.6rem}
+  .hero{height:auto;min-height:480px;padding:60px 0 120px}.hero .subtitle{letter-spacing:4px}
+  .exec-summary,.strategy-box{padding:30px 22px}.exec-head{flex-direction:column}
+  .spotlight{grid-template-columns:1fr;padding:30px 24px}.kpi-row{grid-template-columns:1fr}
+  .chart-box,.table-container{padding:22px 18px}.section-title{font-size:1.6rem}
   .car-side{display:none}.car-stage{max-width:88vw}
 }
 </style></head><body>
 
 <header class="hero">
-  <div class="hero-topbar">
-    <div class="brand-mark"><div class="mk">P</div><span>PQP · Intelligence</span></div>
-    <div class="meta" id="heroMeta"></div>
-  </div>
+  <div class="hero-topbar"><div class="brand-mark"><div class="mk">P</div><span>PQP · Intelligence</span></div><div class="meta" id="heroMeta"></div></div>
   <div class="hero-content">
     <div class="brand-line" id="brandLine"></div>
     <h1><span class="lit">Informe de</span> <span class="accent" id="heroTitle"></span></h1>
@@ -193,38 +163,53 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
     <div class="exec-head"><span class="kicker" id="execKicker"></span><h2>Los puntos del periodo</h2></div>
     <div class="exec-grid" id="execGrid"></div>
   </section>
-
   <div class="spotlight" id="spotlight"></div>
 
-  <!-- 01 VENTA -->
   <div class="section-hero"><div class="num">01</div><h2 class="section-title">Venta <em>registrada</em></h2></div>
-  <p class="section-sub">Unidades vendidas por referencia (rotación del kardex) valorizadas al precio de venta al cliente.</p>
+  <p class="section-sub">Tendencias por jornada y por referencia. Unidades vendidas de cada referencia valorizadas al precio de venta al cliente.</p>
+  <div class="subsection-title">Tendencia de venta</div>
   <div class="chart-split">
-    <div class="chart-box"><div class="cb-head"><h3>Venta total por jornada</h3><div class="cb-tag">Fig. 01</div></div><p class="cb-sub">Pesos (miles).</p><div class="chart-container-sm"><canvas id="chVenta"></canvas></div></div>
-    <div class="chart-box"><div class="cb-head"><h3>Venta por referencia</h3><div class="cb-tag">Fig. 02</div></div><p class="cb-sub">Acumulado del periodo, pesos (miles).</p><div class="chart-container-sm"><canvas id="chRef"></canvas></div></div>
+    <div class="chart-box"><div class="cb-head"><h3>Venta total por jornada</h3><div class="cb-tag">Fig. 01</div></div><p class="cb-sub">Pesos (miles). La jornada récord va en dorado.</p><div class="chart-container-sm"><canvas id="chVenta"></canvas></div></div>
+    <div class="chart-box"><div class="cb-head"><h3>Venta por referencia y jornada</h3><div class="cb-tag">Fig. 02</div></div><p class="cb-sub">Pesos (miles), apilado por referencia.</p><div class="chart-container-sm"><canvas id="chRef"></canvas></div></div>
   </div>
   <div class="subsection-title">Detalle por referencia</div>
-  <div class="table-container"><div class="table-scroll"><table class="table-data" id="tblRef"></table></div></div>
+  <div class="table-container"><p class="tbl-sub" style="margin-top:0">Unidades vendidas por jornada.</p><div class="table-scroll"><table class="table-data" id="tblRef"></table></div></div>
+  <div class="subsection-title">Análisis con el precio como variable</div>
+  <div class="table-container"><h3>Mezcla y ticket promedio por jornada</h3><p class="tbl-sub">Participación de cada formato en las unidades vendidas.</p><div class="table-scroll"><table class="table-data" id="tblMezcla"></table></div></div>
+  <div class="table-wrapper">
+    <div class="table-container"><h3>Efecto volumen vs. efecto precio/mezcla</h3><p class="tbl-sub">Cambio en la venta entre jornadas consecutivas. Volumen = Δ unidades × ticket anterior.</p><div class="table-scroll"><table class="table-data" id="tblEfecto"></table></div></div>
+    <div class="table-container"><h3>Escalera de precios por formato</h3><p class="tbl-sub">Peso de cada tamaño en el periodo.</p><div class="table-scroll"><table class="table-data" id="tblEscalera"></table></div></div>
+  </div>
 
-  <!-- 02 TICKET -->
-  <div class="section-hero"><div class="num">02</div><h2 class="section-title">Ticket <em>por unidad</em></h2></div>
-  <p class="section-sub">Pesos por unidad vendida en cada jornada. Refleja la mezcla entre formatos.</p>
-  <div class="chart-box"><div class="cb-head"><h3>Ticket promedio por unidad</h3><div class="cb-tag">Fig. 03</div></div><p class="cb-sub">Pesos por unidad.</p><div class="chart-container-sm"><canvas id="chTicket"></canvas></div></div>
+  <div class="section-hero"><div class="num">02</div><h2 class="section-title">Comparativo <em>por bloques de 3 jornadas</em></h2></div>
+  <p class="section-sub" id="bloquesSub"></p>
+  <div class="chart-split">
+    <div class="chart-box"><div class="cb-head"><h3>Ticket promedio por unidad</h3><div class="cb-tag">Fig. 03</div></div><p class="cb-sub">Pesos por unidad vendida en cada jornada.</p><div class="chart-container-sm"><canvas id="chTicket"></canvas></div></div>
+    <div class="table-container"><h3>Bloques de jornadas</h3><p class="tbl-sub">Totales de cada bloque y variación frente al bloque anterior.</p><div class="table-scroll"><table class="table-data" id="tblBloques"></table></div></div>
+  </div>
 
-  <!-- 03 INVENTARIO -->
   <div class="section-hero"><div class="num">03</div><h2 class="section-title">Tendencia de <em>inventario</em></h2></div>
-  <p class="section-sub">Inventario de cierre por jornada, en unidades, según el kardex.</p>
-  <div class="chart-box"><div class="cb-head"><h3>Inventario de cierre</h3><div class="cb-tag">Fig. 04</div></div><p class="cb-sub">Unidades al cierre de cada jornada.</p><div class="chart-container-sm"><canvas id="chInv"></canvas></div></div>
+  <p class="section-sub">Apertura y cierre de cada jornada, en unidades en estante, según el kardex de la vendedora. Los valores en <span class="est">cursiva naranja</span> son cierres estimados (apertura − ventas) porque el registro faltaba o venía mal digitado.</p>
+  <div class="chart-split">
+    <div class="chart-box"><div class="cb-head"><h3>Inventario total</h3><div class="cb-tag">Fig. 04</div></div><p class="cb-sub">Apertura y cierre de cada jornada (unidades).</p><div class="chart-container-sm"><canvas id="chInvT"></canvas></div></div>
+    <div class="chart-box"><div class="cb-head"><h3>Inventario de cierre por referencia</h3><div class="cb-tag">Fig. 05</div></div><p class="cb-sub">Unidades al cierre de cada jornada.</p><div class="chart-container-sm"><canvas id="chInvR"></canvas></div></div>
+  </div>
+  <div class="table-container"><h3>Kardex de cierre por referencia</h3><p class="tbl-sub">Unidades en estante al cierre de cada jornada y estado de la última.</p><div class="table-scroll"><table class="table-data" id="tblInv"></table></div></div>
 
-  <!-- 04 MUESTRAS -->
   <div class="section-hero"><div class="num">04</div><h2 class="section-title">Muestras <em>y premios</em></h2></div>
   <p class="section-sub" id="muestrasSub"></p>
   <div class="kpi-row" id="kpiMuestras"></div>
-  <div class="chart-box"><div class="cb-head"><h3>Muestras entregadas por jornada</h3><div class="cb-tag">Fig. 05</div></div><p class="cb-sub">Unidades por día.</p><div class="chart-container-sm"><canvas id="chMuestras"></canvas></div></div>
+  <div class="chart-split">
+    <div class="chart-box"><div class="cb-head"><h3>Muestras entregadas por jornada</h3><div class="cb-tag">Fig. 06</div></div><p class="cb-sub">Unidades por día.</p><div class="chart-container-sm"><canvas id="chMuestras"></canvas></div></div>
+    <div class="table-container"><h3>Premios entregados</h3><p class="tbl-sub">Por tipo y jornada.</p><div class="table-scroll"><table class="table-data" id="tblPremios"></table></div></div>
+  </div>
   <div id="notas"></div>
 
-  <!-- 05 EVIDENCIA -->
-  <div class="section-hero"><div class="num">05</div><h2 class="section-title">Evidencia <em>fotográfica</em></h2></div>
+  <div class="section-hero"><div class="num">05</div><h2 class="section-title">Material <em>POP</em></h2></div>
+  <p class="section-sub">Registro fotográfico del material POP en el punto de venta.</p>
+  <div id="popWrap"></div>
+
+  <div class="section-hero"><div class="num">06</div><h2 class="section-title">Evidencia <em>fotográfica</em></h2></div>
   <p class="section-sub">Registro fotográfico de la actividad. Va rotando solo, o dale clic para pasar a la siguiente.</p>
   <div class="carousel">
     <div class="car-row">
@@ -240,7 +225,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
     <div class="car-caption"><div id="carPdv"></div><div id="carMeta"></div></div>
   </div>
 
-  <!-- CIERRE -->
   <div class="strategy-box">
     <div class="kick">Cierre del periodo</div>
     <h3>Conclusiones y recomendaciones</h3>
@@ -261,328 +245,141 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
 </div></footer>
 
 <script>
-/* =====================================================================
-   DATA — ÚNICA PARTE QUE SE EDITA EN CADA INFORME
-   Números como números (sin formato). El formato es-CO lo aplica la plantilla.
-   Datos de ejemplo tomados del Informe IV.
-   ===================================================================== */
 /*DATA_START*/
-const DATA = {
- "informe": "V",
- "corte": "02 Oct – 06 Nov",
- "periodo": "02 oct – 06 nov de 2026",
- "pdv": "Depósito Milena",
- "ciudad": "Barranquilla",
- "portafolio": "Portafolio Ultrex",
- "jornadas": [
-  "2 oct",
-  "5 oct",
-  "9 oct",
-  "16 oct",
-  "17 oct",
-  "19 oct",
-  "23 oct",
-  "26 oct",
-  "30 oct",
-  "3 nov",
-  "6 nov"
- ],
- "destacada": 9,
- "venta": [
-  557700,
-  501030,
-  264960,
-  376200,
-  381120,
-  325800,
-  133680,
-  874440,
-  282240,
-  990360,
-  422880
- ],
- "unidades": [
-  572,
-  237,
-  240,
-  264,
-  196,
-  204,
-  101,
-  612,
-  204,
-  750,
-  340
- ],
- "muestras": [
-  256,
-  283,
-  185,
-  243,
-  240,
-  40,
-  960,
-  50,
-  410,
-  300,
-  240
- ],
- "invCierre": [
-  4525,
-  3832,
-  4485,
-  3645,
-  3373,
-  3083,
-  2318,
-  1631,
-  1363,
-  5363,
-  null
- ],
- "referencias": [
-  {
-   "nombre": "Fibrapro 125 g",
-   "precio": 840,
-   "uds": 1618
-  },
-  {
-   "nombre": "Fibrapro 250 g",
-   "precio": 2490,
-   "uds": 286
-  },
-  {
-   "nombre": "Fibrapro 500 g",
-   "precio": 3480,
-   "uds": 163
-  },
-  {
-   "nombre": "Manzana 125 g",
-   "precio": 840,
-   "uds": 1138
-  },
-  {
-   "nombre": "Manzana 250 g",
-   "precio": 2490,
-   "uds": 279
-  },
-  {
-   "nombre": "Manzana 500 g",
-   "precio": 3480,
-   "uds": 236
-  }
- ],
- "puntos": [
-  {
-   "ico": "fa-cash-register",
-   "titulo": "Venta acumulada (11 jornadas)",
-   "texto": "<strong>$5.110.410</strong> y <strong>3.720 unidades</strong>. Fibrapro aporta el <strong>51,6%</strong> del valor y Manzana el 48,4%."
-  },
-  {
-   "ico": "fa-calendar-day",
-   "titulo": "Última jornada · 6 nov",
-   "texto": "<strong>$422.880</strong> y 340 uds., <strong>-9,0%</strong> frente al promedio por jornada."
-  },
-  {
-   "ico": "fa-gift",
-   "titulo": "Muestras y premios",
-   "texto": "<strong>3.207 muestras</strong> entregadas, <strong>41 kits</strong> (Kit 1: 19 · Kit 2: 22) y 16 recipientes plásticos."
-  },
-  {
-   "ico": "fa-trophy",
-   "titulo": "Récord del periodo",
-   "texto": "La mejor jornada fue el <strong>3 nov</strong>: <strong>$990.360</strong> y 750 uds."
-  }
- ],
- "kpisMuestras": [
-  {
-   "ico": "fa-gift",
-   "lbl": "Muestras entregadas",
-   "valor": 3207,
-   "nota": "Fibrapro y Manzana 60 g."
-  },
-  {
-   "ico": "fa-spray-can-sparkles",
-   "lbl": "Kit 1",
-   "valor": 19,
-   "nota": "Desengrasante y lavalozas / detergente líquido."
-  },
-  {
-   "ico": "fa-jar",
-   "lbl": "Kit 2",
-   "valor": 22,
-   "nota": "Quitagrasas + limpiavidrios."
-  },
-  {
-   "ico": "fa-box-open",
-   "lbl": "Recipientes plásticos",
-   "valor": 16,
-   "nota": "Entregados como premio."
-  }
- ],
- "muestrasSub": "Muestras y kits entregados en las 11 jornadas.",
- "notas": [
-  {
-   "titulo": "Calidad del dato",
-   "texto": "6 nov: inventario de cierre incompleto o con valores dudosos (Fibrapro 250 g, Manzana 250 g); no se grafica."
-  }
- ],
- "galeria": [],
- "conclusiones": [
-  {
-   "ico": "fa-sack-dollar",
-   "titulo": "Venta acumulada",
-   "texto": "Entre el 2 oct y el 6 nov se vendieron 3.720 unidades por $5.110.410: en promedio $464.583 y 338 unidades por jornada."
-  },
-  {
-   "ico": "fa-scale-balanced",
-   "titulo": "Mezcla y precio",
-   "texto": "El formato de 125 g concentra el 74,1% de las unidades. Los formatos de 250 g y 500 g son los que suben el ticket por unidad ($1.374 en el periodo)."
-  },
-  {
-   "ico": "fa-ranking-star",
-   "titulo": "Referencia líder",
-   "texto": "Fibrapro 125 g es la referencia que más vende en valor: $1.359.120 (26,6% del total)."
-  },
-  {
-   "ico": "fa-boxes-stacked",
-   "titulo": "Inventario y calidad del dato",
-   "texto": "Revisar las notas de dato: 6 nov: inventario de cierre incompleto o con valores dudosos (Fibrapro 250 g, Manzana 250 g); no se grafica."
-  }
- ],
- "cobertura": [
-  "Barranquilla · Depósito Milena.",
-  "11 jornadas: 2 oct, 5 oct, 9 oct, 16 oct, 17 oct, 19 oct, 23 oct, 26 oct, 30 oct, 3 nov, 6 nov."
- ],
- "metodologia": [
-  "Captura en campo con módulos digitales (Google Sheet de la actividad).",
-  "Venta = unidades vendidas × precio de venta al cliente ($840 · $2.490 · $3.480)."
- ],
- "notasDato": [
-  "Se excluyen los registros del usuario de pruebas y las líneas eliminadas.",
-  "Jornadas hasta el 3 nov validadas manualmente (Informe IV); las siguientes se toman del Sheet."
- ]
-};
+const DATA = {"informe": "V", "corte": "02 Oct – 06 Nov", "periodo": "02 oct – 06 nov de 2026", "pdv": "Depósito Milena", "ciudad": "Barranquilla", "portafolio": "Portafolio Ultrex", "jornadas": ["2 oct", "5 oct", "9 oct", "16 oct", "17 oct", "19 oct", "23 oct", "26 oct", "30 oct", "3 nov", "6 nov"], "destacada": 9, "skus": ["Fibrapro 125 g", "Fibrapro 250 g", "Fibrapro 500 g", "Manzana 125 g", "Manzana 250 g", "Manzana 500 g"], "precios": {"Fibrapro 125 g": 840, "Fibrapro 250 g": 2490, "Fibrapro 500 g": 3480, "Manzana 125 g": 840, "Manzana 250 g": 2490, "Manzana 500 g": 3480}, "gramos": {"Fibrapro 125 g": 125, "Fibrapro 250 g": 250, "Fibrapro 500 g": 500, "Manzana 125 g": 125, "Manzana 250 g": 250, "Manzana 500 g": 500}, "matriz": {"Fibrapro 125 g": [320, 0, 48, 96, 60, 54, 72, 252, 108, 402, 38], "Fibrapro 250 g": [3, 33, 0, 2, 48, 12, 28, 12, 48, 102, 0], "Fibrapro 500 g": [0, 24, 12, 12, 0, 18, 1, 20, 12, 30, 35], "Manzana 125 g": [216, 72, 168, 96, 36, 78, 0, 24, 36, 162, 250], "Manzana 250 g": [15, 102, 0, 36, 0, 24, 0, 24, 0, 30, 0], "Manzana 500 g": [18, 6, 12, 27, 52, 18, 0, 24, 0, 24, 17]}, "venta": [557700, 501030, 264960, 391620, 381120, 325800, 133680, 474600, 282240, 990360, 422880], "unidades": [572, 237, 240, 269, 196, 204, 101, 356, 204, 750, 340], "muestras": [256, 283, 185, 243, 240, 40, 1000, 50, 410, 120, 240], "premios": {"Kit 1": [14, 0, 0, 0, 0, 0, 0, 0, 2, 9, 0], "Kit 2": [0, 6, 2, 3, 2, 0, 1, 3, 2, 0, 3], "Recipientes": [0, 0, 0, 2, 0, 9, 4, 0, 1, 3, 0]}, "invApertura": {"Fibrapro 125 g": [501, 0, 0, 1467, 1359, 1299, 651, 579, 1100, 2619, 2217], "Fibrapro 250 g": [936, 765, 586, 586, 526, 478, 418, 390, 337, 271, 169], "Fibrapro 500 g": [733, 733, 638, 608, 590, 590, 538, 395, 476, 474, 444], "Manzana 125 g": [1485, 1269, 1197, 273, 177, 105, 27, 27, 800, 1704, 1545], "Manzana 250 g": [936, 921, 531, 471, 435, 423, 399, 399, 303, 765, 735], "Manzana 500 g": [674, 656, 606, 28, 480, 428, 386, 386, 295, 277, 253]}, "invCierre": {"Fibrapro 125 g": [181, 0, 1647, 1371, 1299, 1221, 579, 0, 992, 2217, 34], "Fibrapro 250 g": [765, 714, 586, 65, 478, 466, 390, 378, 289, 169, 169], "Fibrapro 500 g": [733, 709, 626, 596, 590, 572, 395, 513, 476, 444, 12], "Manzana 125 g": [1269, 1197, 501, 177, 141, 27, 27, 3, 764, 1545, 354], "Manzana 250 g": [921, 819, 531, 435, 435, 399, 399, 375, 303, 735, 735], "Manzana 500 g": [656, 638, 594, 480, 428, 398, 386, 355, 295, 253, 6]}, "invEstimado": [[0, "Fibrapro 500 g"], [1, "Manzana 125 g"], [1, "Manzana 250 g"], [2, "Fibrapro 250 g"], [2, "Manzana 250 g"], [4, "Fibrapro 500 g"], [4, "Manzana 250 g"], [6, "Manzana 125 g"], [6, "Manzana 250 g"], [6, "Manzana 500 g"], [7, "Manzana 125 g"], [8, "Manzana 250 g"], [8, "Manzana 500 g"], [10, "Fibrapro 250 g"], [10, "Manzana 250 g"]], "puntos": [{"ico": "fa-cash-register", "titulo": "Venta acumulada (11 jornadas)", "texto": "<strong>$4.725.990</strong> y <strong>3.469 unidades</strong>. Fibrapro aporta el <strong>53,0%</strong> del valor y Manzana el 47,0%."}, {"ico": "fa-calendar-day", "titulo": "Última jornada · 6 nov", "texto": "<strong>$422.880</strong> y 340 uds., <strong>-1,6%</strong> frente al promedio por jornada ($429.635)."}, {"ico": "fa-gift", "titulo": "Muestras y premios", "texto": "<strong>3.067 muestras</strong> entregadas y <strong>47 kits</strong> (Kit 1: 25 · Kit 2: 22), más 19 recipientes plásticos."}, {"ico": "fa-boxes-stacked", "titulo": "Inventario al 6 nov", "texto": "<strong>1.310 unidades</strong> en estante al cierre. Stock bajo en <strong>Fibrapro 125 g, Fibrapro 500 g, Manzana 500 g</strong>."}], "conclusiones": [{"ico": "fa-sack-dollar", "titulo": "Venta acumulada", "texto": "Entre el 2 oct y el 6 nov se vendieron 3.469 unidades por $4.725.990: $429.635 y 315 unidades por jornada en promedio."}, {"ico": "fa-trophy", "titulo": "Récord del periodo", "texto": "La mejor jornada fue el 3 nov, con $990.360 y 750 unidades."}, {"ico": "fa-scale-balanced", "titulo": "Mezcla y precio", "texto": "El formato de 125 g concentra el 74,6% de las unidades; los formatos de 250 g y 500 g son los que suben el ticket por unidad ($1.362 en el periodo)."}, {"ico": "fa-ranking-star", "titulo": "Referencia líder", "texto": "Fibrapro 125 g es la referencia que más vende en valor: $1.218.000 (25,8% del total)."}, {"ico": "fa-boxes-stacked", "titulo": "Inventario", "texto": "Reponer Fibrapro 125 g, Fibrapro 500 g, Manzana 500 g antes de la próxima jornada (menos de 50 unidades en estante)."}, {"ico": "fa-clipboard-check", "titulo": "Calidad del registro", "texto": "Reforzar con el equipo el uso del módulo de inventario: digitar cantidades contadas, no precios, y registrar las 6 referencias en apertura y cierre."}], "notas": [{"titulo": "Calidad del dato", "texto": "Se excluyeron 13 líneas eliminadas o del usuario de pruebas."}, {"titulo": "Calidad del dato", "texto": "Inventario con precios digitados en lugar de cantidades: 5 oct, 19 oct, 26 oct, 6 nov. Se reemplazó por el cierre anterior o por apertura − ventas."}, {"titulo": "Calidad del dato", "texto": "Inventario de cierre con la venta digitada en lugar del conteo: 5 oct."}, {"titulo": "Calidad del dato", "texto": "Cierres de inventario estimados (apertura − ventas) por dato faltante en: 2 oct, 5 oct, 9 oct, 17 oct, 23 oct, 26 oct, 30 oct, 6 nov."}], "galeria": [], "pop": [], "cobertura": ["Barranquilla · Depósito Milena.", "11 jornadas: 2 oct, 5 oct, 9 oct, 16 oct, 17 oct, 19 oct, 23 oct, 26 oct, 30 oct, 3 nov, 6 nov."], "metodologia": ["Datos descargados y validados del Google Sheet de la actividad antes de armar el informe.", "Venta = unidades vendidas × precio de venta al cliente ($840 · $2.490 · $3.480).", "Inventario: kardex por referencia de la sesión de la vendedora (apertura y cierre en estante)."], "notasDato": ["Se excluyen el usuario de pruebas y las líneas eliminadas.", "2 oct: incluye ventas registradas antes de activar la herramienta (validado en el Informe I).", "19 oct: solo estuvo Daniela; entregó 40 muestras aunque la herramienta registra 20 (Informe IV).", "2 oct: los 6 'Kit' sin tipo se corrigen a 14 Kit 1 (corrección del Informe I).", "19 oct: se entregaron 9 recipientes plásticos (Informe IV); la herramienta registra 2.", "23 oct: se entregaron 4 recipientes plásticos (Informe IV); la herramienta registra 1."]};
 /*DATA_END*/
 
-/* =====================================================================
-   MOTOR DE RENDER — NO EDITAR
-   ===================================================================== */
+/* ================= MOTOR DE RENDER — NO EDITAR ================= */
 const $ = id => document.getElementById(id);
-const N  = v => Math.round(v).toLocaleString('es-CO');                 // 3.380
-const P  = v => '$' + N(v);                                             // $4.687.530
-const K  = v => '$' + N(v / 1000) + 'k';                                // $558k
-const M  = v => v >= 1e6 ? ['$' + (v / 1e6).toFixed(2), 'M'] : ['$' + N(v / 1000), 'k']; // $4.69 M
-const sum = a => a.reduce((x, y) => x + y, 0);
+const N = v => v == null ? '—' : Math.round(v).toLocaleString('es-CO');
+const P = v => v == null ? '—' : (v < 0 ? '-$' : '$') + N(Math.abs(v));
+const K = v => '$' + N(v / 1000) + 'k';
+const M = v => v >= 1e6 ? ['$' + (v / 1e6).toFixed(2), 'M'] : ['$' + N(v / 1000), 'k'];
+const PC = (a, b) => b ? (a / b * 100).toFixed(1).replace('.', ',') + '%' : '—';
+const sum = a => a.reduce((x, y) => x + (y || 0), 0);
+const D = DATA, J = D.jornadas, nJ = J.length, S = D.skus;
+const vTot = sum(D.venta), uTot = sum(D.unidades), mTot = sum(D.muestras);
+const tick = D.venta.map((v, i) => D.unidades[i] ? v / D.unidades[i] : null);
+const isEst = (i, s) => D.invEstimado.some(e => e[0] === i && e[1] === s);
+const rec = D.destacada;
 
-const nJ = DATA.jornadas.length;
-const ventaTot = sum(DATA.venta), udsTot = sum(DATA.unidades), muesTot = sum(DATA.muestras);
-const ticketJ = DATA.venta.map((v, i) => DATA.unidades[i] ? v / DATA.unidades[i] : 0);
+/* Validación de coherencia: si falla, franja roja (no publicar) */
+(() => {
+  const err = [];
+  ['venta', 'unidades', 'muestras'].forEach(k => { if (D[k].length !== nJ) err.push(k + ' incompleto'); });
+  const vr = sum(S.map(s => sum(D.matriz[s]) * D.precios[s]));
+  if (Math.abs(vr - vTot) > 1) err.push('venta por referencia ≠ venta por jornada');
+  if (err.length) { const b = document.createElement('div'); b.style.cssText = 'position:sticky;top:0;z-index:99;background:#7a2020;color:#fff;padding:14px 20px;font:700 .85rem Plus Jakarta Sans,sans-serif'; b.innerHTML = '⚠ DATOS INCOHERENTES — no publicar: ' + err.join(' · '); document.body.prepend(b); }
+})();
 
-/* ---------- Validación de coherencia (Regla 5): si falla, el informe NO se publica ---------- */
-const errores = [];
-['venta', 'unidades', 'muestras', 'invCierre'].forEach(k => { if (DATA[k].length !== nJ) errores.push(`"${k}" tiene ${DATA[k].length} valores y hay ${nJ} jornadas`); });
-const refV = sum(DATA.referencias.map(r => r.uds * r.precio)), refU = sum(DATA.referencias.map(r => r.uds));
-if (Math.abs(refV - ventaTot) > 1) errores.push(`venta por referencias (${P(refV)}) ≠ venta por jornadas (${P(ventaTot)})`);
-if (refU !== udsTot) errores.push(`unidades por referencias (${N(refU)}) ≠ unidades por jornadas (${N(udsTot)})`);
-if (errores.length) {
-  const b = document.createElement('div');
-  b.style.cssText = 'position:sticky;top:0;z-index:99;background:#7a2020;color:#fff;padding:14px 20px;font:700 .85rem Plus Jakarta Sans,sans-serif';
-  b.innerHTML = '⚠ DATOS INCOHERENTES — no publicar:<br>' + errores.join('<br>');
-  document.body.prepend(b); console.error('Informe PQP:', errores);
+document.title = `PQP · Informe de Actividad ${D.informe} — ${D.pdv} ${D.ciudad} · Acumulado ${D.periodo}`;
+$('heroMeta').innerHTML = `<div><span>Informe</span><b>${D.informe}</b></div><div><span>Corte</span><b>${D.corte}</b></div><div><span>Alcance</span><b>Interno</b></div>`;
+$('brandLine').textContent = `${D.portafolio} · ${D.ciudad}`;
+$('heroTitle').textContent = `Actividad ${D.informe}`;
+$('heroSub').textContent = `${D.pdv} · Acumulado ${D.periodo}`;
+const [mv, mu] = M(vTot);
+$('heroFacts').innerHTML = [[nJ, 'Jornadas'], [N(uTot), 'Uds. vendidas'], [`${mv} ${mu}`, 'Venta'], [P(vTot / uTot), 'Ticket por unidad']].map(([n, l]) => `<div><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+$('execKicker').textContent = `${D.ciudad} · ${nJ} jornadas: ${J.join(', ')}`;
+$('execGrid').innerHTML = D.puntos.map((p, i) => `<div class="exec-item"><div class="ico"><i class="fa-solid ${p.ico}"></i></div><div><h4>${String(i + 1).padStart(2, '0')} · ${p.titulo}</h4><p>${p.texto}</p></div></div>`).join('');
+
+/* Bloques de 3 jornadas */
+const bloques = [];
+for (let i = 0; i < nJ; i += 3) {
+  const idx = [...Array(Math.min(3, nJ - i)).keys()].map(k => i + k);
+  const v = sum(idx.map(k => D.venta[k])), u = sum(idx.map(k => D.unidades[k]));
+  bloques.push({ lbl: idx.length > 1 ? `Jorn. ${i + 1}-${i + idx.length}` : `Jorn. ${i + 1}`, fechas: idx.map(k => J[k]).join(', '), v, u, t: u ? v / u : 0 });
 }
-
-document.title = `PQP · Informe de Actividad ${DATA.informe} — ${DATA.pdv} ${DATA.ciudad} · ${DATA.periodo}`;
-$('heroMeta').innerHTML = `<div><span>Informe</span><b>${DATA.informe}</b></div><div><span>Corte</span><b>${DATA.corte}</b></div><div><span>Alcance</span><b>Interno</b></div>`;
-$('brandLine').textContent = `${DATA.portafolio} · ${DATA.ciudad}`;
-$('heroTitle').textContent = `Actividad ${DATA.informe}`;
-$('heroSub').textContent = `${DATA.pdv} · Acumulado ${DATA.periodo}`;
-const [mv, mu] = M(ventaTot);
-$('heroFacts').innerHTML = [[nJ, 'Jornadas'], [N(udsTot), 'Uds. vendidas'], [`${mv} ${mu}`, 'Venta'], [P(ventaTot / udsTot), 'Ticket por unidad']]
-  .map(([n, l]) => `<div><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
-
-$('execKicker').textContent = `${DATA.ciudad} · ${nJ} jornadas · ${DATA.periodo}`;
-$('execGrid').innerHTML = DATA.puntos.map((p, i) =>
-  `<div class="exec-item"><div class="ico"><i class="fa-solid ${p.ico}"></i></div><div><h4>${String(i + 1).padStart(2, '0')} · ${p.titulo}</h4><p>${p.texto}</p></div></div>`).join('');
-
-// Spotlight: venta acumulada + bloques de 3 jornadas + ticket
-const spots = [{ lbl: 'Venta acumulada', v: ventaTot, sub: `${P(ventaTot)} · ${N(udsTot)} uds.` }];
-for (let i = 0; i < nJ && spots.length < 4; i += 3) {
-  const j = DATA.jornadas.slice(i, i + 3), v = sum(DATA.venta.slice(i, i + 3)), u = sum(DATA.unidades.slice(i, i + 3));
-  spots.push({ lbl: `Jornadas ${i + 1} a ${i + j.length}`, v, sub: `${N(u)} uds. · ${j.join(', ')}` });
-}
-let sp = spots.map(s => { const [a, b] = M(s.v); return `<div class="sp-stat"><div class="sp-lbl">${s.lbl}</div><h2>${a}<small>${b}</small></h2><div class="sp-sub">${s.sub}</div></div>`; }).join('');
-sp += `<div class="sp-stat"><div class="sp-lbl">Ticket promedio por unidad</div><h2>${P(ventaTot / udsTot)}</h2><div class="sp-sub">Venta ÷ unidades del periodo</div></div>`;
+const spots = [{ lbl: 'Venta acumulada', v: vTot, sub: `${P(vTot)} · ${N(uTot)} uds. en ${nJ} jornadas` }]
+  .concat(bloques.slice(-3).map(b => ({ lbl: b.lbl.replace('Jorn.', 'Jornadas'), v: b.v, sub: `${N(b.u)} uds. · ${b.fechas}` })));
 $('spotlight').style.setProperty('--cols', spots.length + 1);
-$('spotlight').innerHTML = sp;
+$('spotlight').innerHTML = spots.map(s => { const [a, b] = M(s.v); return `<div class="sp-stat"><div class="sp-lbl">${s.lbl}</div><h2>${a}<small>${b}</small></h2><div class="sp-sub">${s.sub}</div></div>`; }).join('') +
+  `<div class="sp-stat"><div class="sp-lbl">Ticket promedio por unidad</div><h2>${P(vTot / uTot)}</h2><div class="sp-sub">${bloques.map(b => P(b.t)).join(' · ')} por bloque</div></div>`;
 
-// Tabla de referencias (última fila = total, se pinta en rojo)
-const refs = DATA.referencias.map(r => ({ ...r, v: r.uds * r.precio }));
-const refTot = sum(refs.map(r => r.v));
-$('tblRef').innerHTML = `<tr><th>Referencia</th><th class="num">Precio</th><th class="num">Unidades</th><th class="num">Venta</th><th class="num">% valor</th></tr>` +
-  refs.map(r => `<tr><td>${r.nombre}</td><td class="num">${P(r.precio)}</td><td class="num">${N(r.uds)}</td><td class="num">${P(r.v)}</td><td class="num">${(r.v / refTot * 100).toFixed(1).replace('.', ',')}%</td></tr>`).join('') +
-  `<tr class="total"><td>Total</td><td></td><td class="num">${N(sum(refs.map(r => r.uds)))}</td><td class="num">${P(refTot)}</td><td class="num">100%</td></tr>`;
+/* 01 · Tablas de venta */
+const head = cols => '<tr>' + cols.map((c, i) => `<th class="${i ? 'num' : ''}">${c}</th>`).join('') + '</tr>';
+$('tblRef').innerHTML = head(['Referencia', 'Precio', ...J, 'Total uds.', 'Venta total', '% valor']) +
+  S.map(s => { const u = sum(D.matriz[s]), v = u * D.precios[s]; return `<tr><td>${s}</td><td class="num">${P(D.precios[s])}</td>${D.matriz[s].map(x => `<td class="num">${N(x)}</td>`).join('')}<td class="num">${N(u)}</td><td class="num">${P(v)}</td><td class="num">${PC(v, vTot)}</td></tr>`; }).join('') +
+  `<tr class="total"><td>Total</td><td></td>${D.unidades.map(x => `<td class="num">${N(x)}</td>`).join('')}<td class="num">${N(uTot)}</td><td class="num">${P(vTot)}</td><td class="num">100%</td></tr>`;
+const fmtU = g => i => sum(S.filter(s => D.gramos[s] === g).map(s => D.matriz[s][i]));
+const u125 = fmtU(125), u250 = fmtU(250), u500 = fmtU(500);
+$('tblMezcla').innerHTML = head(['Jornada', 'Unidades', 'Venta $', 'Ticket por unidad', '% uds. 125 g', '% uds. 250 g', '% uds. 500 g']) +
+  J.map((j, i) => `<tr class="${i === rec ? 'rec' : ''}"><td>${j}${i === rec ? ' · récord' : ''}</td><td class="num">${N(D.unidades[i])}</td><td class="num">${P(D.venta[i])}</td><td class="num">${P(tick[i])}</td><td class="num">${PC(u125(i), D.unidades[i])}</td><td class="num">${PC(u250(i), D.unidades[i])}</td><td class="num">${PC(u500(i), D.unidades[i])}</td></tr>`).join('') +
+  `<tr class="total"><td>Total</td><td class="num">${N(uTot)}</td><td class="num">${P(vTot)}</td><td class="num">${P(vTot / uTot)}</td><td class="num">${PC(sum(J.map((_, i) => u125(i))), uTot)}</td><td class="num">${PC(sum(J.map((_, i) => u250(i))), uTot)}</td><td class="num">${PC(sum(J.map((_, i) => u500(i))), uTot)}</td></tr>`;
+const sg = v => `<span class="${v >= 0 ? 'pos' : 'neg'}" style="font-weight:800">${v >= 0 ? '+' : ''}${P(v)}</span>`;
+$('tblEfecto').innerHTML = head(['Tramo', 'Δ venta', 'Efecto volumen', 'Efecto precio/mezcla']) +
+  J.slice(1).map((j, k) => { const i = k + 1, dv = D.venta[i] - D.venta[k], vol = (D.unidades[i] - D.unidades[k]) * (tick[k] || 0); return `<tr><td>${J[k]} → ${j}</td><td class="num">${sg(dv)}</td><td class="num">${sg(vol)}</td><td class="num">${sg(dv - vol)}</td></tr>`; }).join('');
+$('tblEscalera').innerHTML = head(['Formato', 'Precio', '$ por gramo', '% uds.', '% valor']) +
+  [125, 250, 500].map(g => { const ss = S.filter(s => D.gramos[s] === g), u = sum(ss.map(s => sum(D.matriz[s]))), p = D.precios[ss[0]]; return `<tr><td>${g} g</td><td class="num">${P(p)}</td><td class="num">$${(p / g).toFixed(2).replace('.', ',')}</td><td class="num">${PC(u, uTot)}</td><td class="num">${PC(u * p, vTot)}</td></tr>`; }).join('');
 
-$('muestrasSub').textContent = DATA.muestrasSub;
-$('kpiMuestras').innerHTML = DATA.kpisMuestras.map(k =>
-  `<div class="kpi-card"><div class="k-ico"><i class="fa-solid ${k.ico}"></i></div><div class="k-lbl">${k.lbl}</div><h3>${N(k.valor)}</h3><div class="k-note">${k.nota}</div></div>`).join('');
-$('notas').innerHTML = DATA.notas.map(n => `<div class="table-container note-box"><h3>${n.titulo}</h3><p>${n.texto}</p></div>`).join('');
+/* 02 · Bloques */
+$('bloquesSub').textContent = bloques.map(b => `${b.lbl} (${b.fechas})`).join(' · ') + '.';
+const varp = (a, b) => b ? `<span class="${a >= b ? 'pos' : 'neg'}" style="font-weight:800">${a >= b ? '+' : ''}${((a / b - 1) * 100).toFixed(1).replace('.', ',')}%</span>` : '—';
+$('tblBloques').innerHTML = head(['Bloque', 'Unidades', 'Venta', 'Ticket', 'Δ venta']) +
+  bloques.map((b, i) => `<tr><td>${b.lbl}<br><small style="color:var(--p-gray)">${b.fechas}</small></td><td class="num">${N(b.u)}</td><td class="num">${P(b.v)}</td><td class="num">${P(b.t)}</td><td class="num">${i ? varp(b.v, bloques[i - 1].v) : '—'}</td></tr>`).join('');
 
-$('conclSub').textContent = `Lectura de la venta, la mezcla y el precio de las ${nJ} jornadas.`;
-const best = DATA.destacada ?? DATA.venta.indexOf(Math.max(...DATA.venta));
+/* 03 · Inventario */
+const invTot = k => J.map((_, i) => { const vals = S.map(s => D[k][s][i]); return vals.every(v => v == null) ? null : sum(vals); });
+const apT = invTot('invApertura'), ciT = invTot('invCierre');
+const ult = nJ - 1;
+$('tblInv').innerHTML = head(['Referencia', ...J, 'Estado']) +
+  S.map(s => { const c = D.invCierre[s][ult]; const st = c == null ? '<span class="pill warn">Sin dato</span>' : c < 50 ? '<span class="pill neg">Reponer</span>' : c < 150 ? '<span class="pill warn">Bajo</span>' : '<span class="pill pos">OK</span>';
+    return `<tr><td>${s}</td>${D.invCierre[s].map((v, i) => `<td class="num ${isEst(i, s) ? 'est' : ''}">${N(v)}</td>`).join('')}<td class="num">${st}</td></tr>`; }).join('') +
+  `<tr class="total"><td>Total</td>${ciT.map(v => `<td class="num">${N(v)}</td>`).join('')}<td></td></tr>`;
+
+/* 04 · Muestras y premios */
+const PR = D.premios, totP = k => sum(PR[k]);
+$('muestrasSub').textContent = `Muestras y premios entregados en las ${nJ} jornadas.`;
+$('kpiMuestras').innerHTML = [['fa-gift', 'Muestras entregadas', mTot, 'Fibrapro y Manzana 60 g.'], ['fa-spray-can-sparkles', 'Kit 1', totP('Kit 1'), 'Detergente líquido + suavizante / desengrasante y lavalozas.'], ['fa-jar', 'Kit 2', totP('Kit 2'), 'Quitagrasas + limpiavidrios.'], ['fa-box-open', 'Recipientes plásticos', totP('Recipientes'), 'Entregados como premio.']]
+  .map(([i, l, v, n]) => `<div class="kpi-card"><div class="k-ico"><i class="fa-solid ${i}"></i></div><div class="k-lbl">${l}</div><h3>${N(v)}</h3><div class="k-note">${n}</div></div>`).join('');
+$('tblPremios').innerHTML = head(['Jornada', 'Kit 1', 'Kit 2', 'Recipientes']) +
+  J.map((j, i) => [PR['Kit 1'][i], PR['Kit 2'][i], PR['Recipientes'][i]]).map((r, i) => sum(r) ? `<tr><td>${J[i]}</td>${r.map(x => `<td class="num">${N(x)}</td>`).join('')}</tr>` : '').join('') +
+  `<tr class="total"><td>Total</td><td class="num">${totP('Kit 1')}</td><td class="num">${totP('Kit 2')}</td><td class="num">${totP('Recipientes')}</td></tr>`;
+$('notas').innerHTML = D.notas.map(n => `<div class="table-container note-box"><h3>${n.titulo}</h3><p>${n.texto}</p></div>`).join('');
+
+/* 05 · POP / 06 · Galería */
+const pend = t => `<div class="table-container note-box"><h3>${t}</h3><p>El registro fotográfico de este periodo se agregará en la próxima actualización.</p></div>`;
+$('popWrap').innerHTML = D.pop.length ? `<div class="pop-grid">${D.pop.map(p => `<div class="pop-card"><img src="${p.url}" alt="${p.titulo || 'Material POP'}" referrerpolicy="no-referrer" loading="lazy"><div class="pop-cap">${p.etiqueta || 'Instalado'}<b>${p.titulo || 'Material POP'}</b></div></div>`).join('')}</div>` : pend('Fotos de material POP pendientes');
+if (!D.galeria.length) document.querySelector('.carousel').outerHTML = pend('Evidencia fotográfica pendiente');
+
+/* Cierre */
+$('conclSub').textContent = `Lectura de la venta, la mezcla, el inventario y el precio de las ${nJ} jornadas.`;
 $('conclCards').innerHTML = `
-  <div class="concl-card rojo"><div class="cl">Venta total acumulada</div><div class="cv">${P(ventaTot)}</div><div class="cs">${N(udsTot)} uds. · ${nJ} jornadas</div></div>
-  <div class="concl-card oscuro"><div class="cl">Promedio por jornada</div><div class="cv">${P(ventaTot / nJ)}</div><div class="cs">${N(udsTot / nJ)} uds. promedio</div></div>
-  <div class="concl-card oro"><div class="cl">Récord · Jornada ${best + 1}</div><div class="cv">${P(DATA.venta[best])}</div><div class="cs">${N(DATA.unidades[best])} uds. · ${DATA.jornadas[best]}</div></div>`;
-$('stratGrid').innerHTML = DATA.conclusiones.map((c, i) =>
-  `<div class="strat-item"><h6><i class="fa-solid ${c.ico}"></i>${String(i + 1).padStart(2, '0')} · ${c.titulo}</h6><p>${c.texto}</p></div>`).join('');
-
+  <div class="concl-card rojo"><div class="cl">Venta total acumulada</div><div class="cv">${P(vTot)}</div><div class="cs">${N(uTot)} uds. · ${nJ} jornadas</div></div>
+  <div class="concl-card oscuro"><div class="cl">Promedio por jornada</div><div class="cv">${P(vTot / nJ)}</div><div class="cs">${N(uTot / nJ)} uds. promedio</div></div>
+  <div class="concl-card oro"><div class="cl">Récord · Jornada ${rec + 1}</div><div class="cv">${P(D.venta[rec])}</div><div class="cs">${N(D.unidades[rec])} uds. · ${J[rec]}</div></div>`;
+$('stratGrid').innerHTML = D.conclusiones.map((c, i) => `<div class="strat-item"><h6><i class="fa-solid ${c.ico}"></i>${String(i + 1).padStart(2, '0')} · ${c.titulo}</h6><p>${c.texto}</p></div>`).join('');
 const para = a => a.map(t => `<p>${t}</p>`).join('');
-$('fCob').innerHTML = para(DATA.cobertura); $('fMet').innerHTML = para(DATA.metodologia); $('fNot').innerHTML = para(DATA.notasDato);
-$('footBottom').innerHTML = `<span>PQP · Todos los derechos reservados</span><span>Informe ${DATA.informe} · ${nJ} jornadas · 1 PDV · ${N(udsTot)} uds.</span><span>Periodo · ${DATA.periodo}</span>`;
+$('fCob').innerHTML = para(D.cobertura); $('fMet').innerHTML = para(D.metodologia); $('fNot').innerHTML = para(D.notasDato);
+$('footBottom').innerHTML = `<span>PQP · Todos los derechos reservados</span><span>Informe ${D.informe} · ${nJ} jornadas · 1 PDV · ${N(uTot)} uds.</span><span>Periodo · ${D.periodo}</span>`;
 
-/* ---------- Gráficas: SIEMPRE paleta PQP roja ---------- */
-const C = { ink: '#241c1c', red: '#E1000F', deep: '#a30000', dark: '#7a0000', soft: '#ff8a8a', mint: '#ffdede', gray: '#8a7a7b', line: '#f1e8e8', gold: '#fbbf24' };
-const SERIES = [C.red, C.ink, C.deep, C.soft, '#a37b3a', '#6b4e88', '#0e7a5f'];
-// bloques de 3 jornadas en tonos de rojo; la jornada destacada en dorado
-const blockColor = i => i === DATA.destacada ? C.gold : [C.soft, C.red, C.dark, C.ink][Math.floor(i / 3) % 4];
-const BC = DATA.jornadas.map((_, i) => blockColor(i));
+/* Gráficas — paleta PQP roja */
+const C = { ink: '#241c1c', red: '#E1000F', deep: '#a30000', dark: '#7a0000', soft: '#ff8a8a', line: '#f1e8e8', gray: '#8a7a7b', gold: '#fbbf24' };
+const SERIES = ['#E1000F', '#7a0000', '#ff8a8a', '#241c1c', '#a37b3a', '#6b4e88'];
+const BC = J.map((_, i) => i === rec ? C.gold : [C.soft, C.red, C.dark, C.ink][Math.floor(i / 3) % 4]);
 Chart.register(ChartDataLabels);
-Chart.defaults.font.family = 'Plus Jakarta Sans';
-Chart.defaults.color = C.gray;
+Chart.defaults.font.family = 'Plus Jakarta Sans'; Chart.defaults.color = C.gray;
 const font = { weight: '600', size: 11 };
 const ax = { grid: { color: C.line, drawTicks: false }, ticks: { font, padding: 8 }, border: { display: false } };
-const axX = { grid: { display: false }, ticks: { font, padding: 8 }, border: { display: false } };
-const dl = fmt => ({ color: C.ink, anchor: 'end', align: 'end', font: { weight: '800', size: 11 }, formatter: fmt });
-const barOpts = fmt => ({ maintainAspectRatio: false, layout: { padding: { top: 22 } }, plugins: { legend: { display: false }, datalabels: dl(fmt) }, scales: { x: axX, y: { ...ax, beginAtZero: true, ticks: { ...ax.ticks, callback: fmt } } } });
-const bar = (id, data, fmt) => new Chart($(id), { type: 'bar', data: { labels: DATA.jornadas, datasets: [{ data, backgroundColor: BC, borderRadius: 3, barPercentage: .6 }] }, options: barOpts(fmt) });
+const axX = { grid: { display: false }, ticks: { font, padding: 6 }, border: { display: false } };
+const dl = f => ({ color: C.ink, anchor: 'end', align: 'end', font: { weight: '800', size: 10 }, formatter: f, display: c => c.dataset.data[c.dataIndex] != null });
+const leg = { position: 'bottom', labels: { font, boxWidth: 12 } };
+const bar = (id, data, f) => new Chart($(id), { type: 'bar', data: { labels: J, datasets: [{ data, backgroundColor: BC, borderRadius: 3, barPercentage: .6 }] }, options: { maintainAspectRatio: false, layout: { padding: { top: 22 } }, plugins: { legend: { display: false }, datalabels: dl(f) }, scales: { x: axX, y: { ...ax, beginAtZero: true, ticks: { ...ax.ticks, callback: f } } } } });
+bar('chVenta', D.venta, K); bar('chTicket', tick, P); bar('chMuestras', D.muestras, N);
+new Chart($('chRef'), { type: 'bar', data: { labels: J, datasets: S.map((s, k) => ({ label: s, data: D.matriz[s].map(u => u * D.precios[s]), backgroundColor: SERIES[k], borderRadius: 2 })) }, options: { maintainAspectRatio: false, plugins: { legend: leg, datalabels: { display: false } }, scales: { x: { ...axX, stacked: true }, y: { ...ax, stacked: true, ticks: { ...ax.ticks, callback: K } } } } });
+new Chart($('chInvT'), { type: 'line', data: { labels: J, datasets: [{ label: 'Apertura', data: apT, borderColor: C.soft, backgroundColor: C.soft, pointRadius: 4, tension: 0 }, { label: 'Cierre', data: ciT, borderColor: C.red, backgroundColor: C.red, pointRadius: 5, tension: 0 }] }, options: { maintainAspectRatio: false, layout: { padding: { top: 22 } }, plugins: { legend: leg, datalabels: { ...dl(N), align: 'top', display: c => c.datasetIndex === 1 && c.dataset.data[c.dataIndex] != null } }, scales: { x: axX, y: { ...ax, ticks: { ...ax.ticks, callback: N } } } } });
+new Chart($('chInvR'), { type: 'line', data: { labels: J, datasets: S.map((s, k) => ({ label: s, data: D.invCierre[s], borderColor: SERIES[k], backgroundColor: SERIES[k], pointRadius: 3, tension: 0, spanGaps: true })) }, options: { maintainAspectRatio: false, plugins: { legend: leg, datalabels: { display: false } }, scales: { x: axX, y: { ...ax, ticks: { ...ax.ticks, callback: N } } } } });
 
-bar('chVenta', DATA.venta, K);
-bar('chTicket', ticketJ, P);
-bar('chMuestras', DATA.muestras, N);
-new Chart($('chRef'), { type: 'bar', data: { labels: refs.map(r => r.nombre), datasets: [{ data: refs.map(r => r.v), backgroundColor: refs.map((_, i) => SERIES[i % SERIES.length]), borderRadius: 3, barPercentage: .6 }] },
-  options: { indexAxis: 'y', maintainAspectRatio: false, layout: { padding: { right: 50 } }, plugins: { legend: { display: false }, datalabels: { ...dl(K), align: 'right' } }, scales: { x: { ...ax, ticks: { ...ax.ticks, callback: K } }, y: axX } } });
-new Chart($('chInv'), { type: 'line', data: { labels: DATA.jornadas, datasets: [{ data: DATA.invCierre, borderColor: C.red, backgroundColor: C.red, pointRadius: 5, tension: 0 }] },
-  options: { maintainAspectRatio: false, layout: { padding: { top: 24 } }, plugins: { legend: { display: false }, datalabels: { ...dl(N), align: 'top', display: c => c.dataset.data[c.dataIndex] != null } }, scales: { x: axX, y: { ...ax, ticks: { ...ax.ticks, callback: N } } } } });
-
-/* ---------- Carrusel ---------- */
+/* Carrusel */
 let ci = 0, timer;
-if (!DATA.galeria.length) {
-  document.querySelector('.carousel').outerHTML = '<div class="table-container note-box"><h3>Fotos pendientes de carga</h3><p>El registro fotográfico de este periodo se agregará en la próxima actualización.</p></div>';
-}
 function showCar() {
-  if (!DATA.galeria.length) return;
-  const G = DATA.galeria; if (!G.length) return;
-  const v = G[ci], img = $('carImg');
-  img.style.opacity = 0;
+  const G = D.galeria, v = G[ci], img = $('carImg'); img.style.opacity = 0;
   const pre = new Image(); pre.referrerPolicy = 'no-referrer'; pre.onload = () => { img.src = v.url; img.style.opacity = 1; }; pre.src = v.url;
   $('carImgPrev').src = G[(ci - 1 + G.length) % G.length].url; $('carImgNext').src = G[(ci + 1) % G.length].url;
-  $('carPdv').textContent = v.pdv; $('carMeta').textContent = v.meta; $('carCounter').textContent = `${ci + 1} / ${G.length}`;
+  $('carPdv').textContent = v.pdv || ''; $('carMeta').textContent = v.meta || ''; $('carCounter').textContent = `${ci + 1} / ${G.length}`;
 }
-const step = d => { ci = (ci + d + DATA.galeria.length) % DATA.galeria.length; showCar(); clearInterval(timer); timer = setInterval(() => step(1), 4000); };
-if (DATA.galeria.length) {
-  $('carNext').onclick = e => { e.stopPropagation(); step(1); };
-  $('carPrev').onclick = e => { e.stopPropagation(); step(-1); };
+if (D.galeria.length) {
+  const step = d => { ci = (ci + d + D.galeria.length) % D.galeria.length; showCar(); clearInterval(timer); timer = setInterval(() => step(1), 4000); };
+  $('carNext').onclick = e => { e.stopPropagation(); step(1); }; $('carPrev').onclick = e => { e.stopPropagation(); step(-1); };
   $('carStage').onclick = () => step(1); $('carL').onclick = () => step(-1); $('carR').onclick = () => step(1);
   showCar(); timer = setInterval(() => step(1), 4000);
 }
