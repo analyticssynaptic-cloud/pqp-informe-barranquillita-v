@@ -205,9 +205,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--p-soft);color:v
   </div>
   <div id="notas"></div>
 
-  <div class="section-hero"><div class="num">05</div><h2 class="section-title">Material <em>POP</em></h2></div>
-  <p class="section-sub">Registro fotográfico del material POP en el punto de venta.</p>
-  <div id="popWrap"></div>
+  
 
   <div class="section-hero"><div class="num">06</div><h2 class="section-title">Evidencia <em>fotográfica</em></h2></div>
   <p class="section-sub">Registro fotográfico de la actividad. Va rotando solo, o dale clic para pasar a la siguiente.</p>
@@ -338,7 +336,7 @@ $('notas').innerHTML = D.notas.map(n => `<div class="table-container note-box"><
 
 /* 05 · POP / 06 · Galería */
 const pend = t => `<div class="table-container note-box"><h3>${t}</h3><p>El registro fotográfico de este periodo se agregará en la próxima actualización.</p></div>`;
-$('popWrap').innerHTML = D.pop.length ? `<div class="pop-grid">${D.pop.map(p => `<div class="pop-card"><img src="${p.url}" alt="${p.titulo || 'Material POP'}" referrerpolicy="no-referrer" loading="lazy"><div class="pop-cap">${p.etiqueta || 'Instalado'}<b>${p.titulo || 'Material POP'}</b></div></div>`).join('')}</div>` : pend('Fotos de material POP pendientes');
+$("popWrap") && ($("popWrap").innerHTML = "")
 if (!D.galeria.length) document.querySelector('.carousel').outerHTML = pend('Evidencia fotográfica pendiente');
 
 /* Cierre */
